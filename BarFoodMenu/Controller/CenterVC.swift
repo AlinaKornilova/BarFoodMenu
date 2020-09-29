@@ -99,9 +99,9 @@ class CenterVC: UIViewController {
                             let eachProductDetail = eachProductData["productDetail"] as! String
                             let eachProductViewer = eachProductData["productViewer"] as! NSNumber
 
-                            EachCategoryProducts.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!,  productPrice: eachProductPrice, productRating: Double(eachProductRating), productDetail: eachProductDetail, productViewer: Int( eachProductViewer )))
+                            EachCategoryProducts.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!,  productPrice: eachProductPrice, productRating: Double(eachProductRating), productDetail: eachProductDetail, productViewer: Int( eachProductViewer ), productCategory: eachCategoryName!))
                                     
-                            allProductsForAllMenu.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!,  productPrice: eachProductPrice, productRating: Double(eachProductRating), productDetail: eachProductDetail, productViewer: Int( eachProductViewer )))
+                            allProductsForAllMenu.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!,  productPrice: eachProductPrice, productRating: Double(eachProductRating), productDetail: eachProductDetail, productViewer: Int( eachProductViewer ), productCategory: eachCategoryName!))
                         }
                         
                         SharedManager.shared.AllProducts[eachCategoryName!] = EachCategoryProducts

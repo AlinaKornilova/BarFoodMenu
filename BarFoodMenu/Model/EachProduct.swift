@@ -18,8 +18,9 @@ class EachProduct {
     var productRating: Double
     var productDetail: String
     var productViewer: Int
+    var productCategory: String
     
-    init(productID: String, productName: String, productImgUrl: String, productPrice: String, productRating: Double, productDetail: String, productViewer: Int) {
+    init(productID: String, productName: String, productImgUrl: String, productPrice: String, productRating: Double, productDetail: String, productViewer: Int, productCategory: String) {
         self.productID = productID
         self.productName = productName
         self.productImgUrl = productImgUrl
@@ -27,5 +28,6 @@ class EachProduct {
         self.productRating = productRating
         self.productDetail =  productDetail
         self.productViewer = productViewer
+        self.productCategory = productCategory
     }
 }

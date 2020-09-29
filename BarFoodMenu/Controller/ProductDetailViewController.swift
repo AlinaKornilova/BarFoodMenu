@@ -13,6 +13,8 @@ import SDWebImage
 class ProductDetailViewController: UIViewController {
     
     var productData : EachProduct!
+    var userDefaults = UserDefaults.standard
+    var readData : String!
     
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productDetail: UILabel!
@@ -58,6 +60,34 @@ class ProductDetailViewController: UIViewController {
         // Set the border color of a filled star
         popularStar.settings.filledBorderColor = UIColor.orange
         // Do any additional setup after loading the view.
+        if(UserDefaults.standard.dictionaryRepresentation().keys.contains(productData.productID)) {
+            
+            favoriteBtn.setTitle("Remove from favorites", for: .normal)
+            
+        }
+        else {
+            favoriteBtn.setTitle("Add to favorites", for: .normal)
+        }
+    }
+    @IBAction func favoriteBtnAction(_ sender: Any) {
+        if(UserDefaults.standard.dictionaryRepresentation().keys.contains(productData.productID)) {
+            deleteFromDefaults(favoriteID: productData.productID)
+            favoriteBtn.setTitle("Add to favorites", for: .normal)
+            
+            
+        }
+        else {
+            writeToDefaults(favoriteCategory: productData.productCategory, favoriteID: productData.productID)
+            favoriteBtn.setTitle("Remove from favorites", for: .normal)
+        }
+    }
+    
+    func writeToDefaults(favoriteCategory: String, favoriteID: String) {
+        userDefaults.set(favoriteCategory, forKey: favoriteID)
+    }
+    
+    func deleteFromDefaults(favoriteID: String) {
+        userDefaults.removeObject(forKey: favoriteID)
     }
     
 

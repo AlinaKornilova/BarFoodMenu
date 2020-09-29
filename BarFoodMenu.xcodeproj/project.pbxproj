@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09078969251BC33900666552 /* FavoriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09078968251BC33900666552 /* FavoriteManager.swift */; };
 		09691D48251763CC00C0617E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D47251763CC00C0617E /* AppDelegate.swift */; };
 		09691D4A251763CC00C0617E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D49251763CC00C0617E /* SceneDelegate.swift */; };
 		09691D4F251763CC00C0617E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09691D4D251763CC00C0617E /* Main.storyboard */; };
@@ -37,7 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		09078968251BC33900666552 /* FavoriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavoriteManager.swift; path = ../../../FavoriteManager.swift; sourceTree = "<group>"; };
 		09691D44251763CC00C0617E /* Okay Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Okay Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09691D47251763CC00C0617E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09691D49251763CC00C0617E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 				09E2FF512519DDE300668AA1 /* EachUser.swift */,
 				09691D7F251774C000C0617E /* EachProduct.swift */,
 				09691D84251776AF00C0617E /* SharedManager.swift */,
-				09078968251BC33900666552 /* FavoriteManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -336,7 +333,6 @@
 				09691D5E251766B300C0617E /* LeftMenuVC.swift in Sources */,
 				09691D83251774C000C0617E /* AnnotatedPhotoCell.swift in Sources */,
 				09E2FF4D2518FB7200668AA1 /* Utils.swift in Sources */,
-				09078969251BC33900666552 /* FavoriteManager.swift in Sources */,
 				09691D60251766B300C0617E /* LeftMenuCell.swift in Sources */,
 				09691D902517A90400C0617E /* UIImage.swift in Sources */,
 				09A463D62519E12D007434D4 /* NavigationViewController.swift in Sources */,

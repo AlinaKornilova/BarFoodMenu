@@ -836,6 +836,9 @@
                                         <variation key="heightClass=regular-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                         </variation>
+                                        <connections>
+                                            <action selector="favoriteBtnAction:" destination="YSd-5u-81n" eventType="touchUpInside" id="Olp-ln-HPX"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WdG-el-BA3">
                                         <rect key="frame" x="303.66666666666669" y="483" width="50.333333333333314" height="24"/>
