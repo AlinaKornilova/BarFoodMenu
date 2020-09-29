@@ -25,6 +25,8 @@
 		09691D942517CD5700C0617E /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D932517CD5700C0617E /* ProductDetailViewController.swift */; };
 		09691D972518668500C0617E /* RightMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D952518668400C0617E /* RightMenuCell.swift */; };
 		09691D982518668500C0617E /* RightMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D962518668500C0617E /* RightMenuVC.swift */; };
+		09A0F14E2523BA700006EADB /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0F14D2523BA700006EADB /* FeedbackViewController.swift */; };
+		09A0F1502523BA980006EADB /* FeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0F14F2523BA980006EADB /* FeedbackTableViewCell.swift */; };
 		09A463D32519E116007434D4 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D12519E115007434D4 /* SigninViewController.swift */; };
 		09A463D42519E116007434D4 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D22519E116007434D4 /* SignupViewController.swift */; };
 		09A463D62519E12D007434D4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D52519E12D007434D4 /* NavigationViewController.swift */; };
@@ -56,6 +58,8 @@
 		09691D932517CD5700C0617E /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
 		09691D952518668400C0617E /* RightMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuCell.swift; sourceTree = "<group>"; };
 		09691D962518668500C0617E /* RightMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuVC.swift; sourceTree = "<group>"; };
+		09A0F14D2523BA700006EADB /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
+		09A0F14F2523BA980006EADB /* FeedbackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTableViewCell.swift; sourceTree = "<group>"; };
 		09A463D12519E115007434D4 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		09A463D22519E116007434D4 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		09A463D52519E12D007434D4 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 				09691D5B251766B300C0617E /* LeftMenuVC.swift */,
 				09691D61251766C300C0617E /* CenterVC.swift */,
 				09691D932517CD5700C0617E /* ProductDetailViewController.swift */,
+				09A0F14D2523BA700006EADB /* FeedbackViewController.swift */,
 				09078962251B981300666552 /* Authentication */,
 			);
 			path = Controller;
@@ -161,6 +166,7 @@
 				09691D952518668400C0617E /* RightMenuCell.swift */,
 				09691D5D251766B300C0617E /* LeftMenuCell.swift */,
 				09691D81251774C000C0617E /* AnnotatedPhotoCell.swift */,
+				09A0F14F2523BA980006EADB /* FeedbackTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -328,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09A0F14E2523BA700006EADB /* FeedbackViewController.swift in Sources */,
 				09691D85251776B000C0617E /* SharedManager.swift in Sources */,
 				09691D8E2517A90400C0617E /* SInce1970.swift in Sources */,
 				09691D5E251766B300C0617E /* LeftMenuVC.swift in Sources */,
@@ -340,6 +347,7 @@
 				09A463D42519E116007434D4 /* SignupViewController.swift in Sources */,
 				09691D972518668500C0617E /* RightMenuCell.swift in Sources */,
 				09E2FF532519DDE300668AA1 /* FirebaseUpload.swift in Sources */,
+				09A0F1502523BA980006EADB /* FeedbackTableViewCell.swift in Sources */,
 				09E2FF4C2518FB7200668AA1 /* CameraHandler.swift in Sources */,
 				09691D982518668500C0617E /* RightMenuVC.swift in Sources */,
 				09691D62251766C300C0617E /* CenterVC.swift in Sources */,
