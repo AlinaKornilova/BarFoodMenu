@@ -16,7 +16,8 @@ class FeedbackTableViewCell: UITableViewCell {
     @IBOutlet weak var feedbackUserName: UILabel!
     @IBOutlet weak var feedbackDate: UILabel!
     @IBOutlet weak var feedbackContent: UILabel!
-
+    @IBOutlet weak var cellGroup: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

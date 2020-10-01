@@ -82,6 +82,15 @@ class ProductDetailViewController: UIViewController {
         }
     }
     
+    @IBAction func viewFeedbacksBtnAction(_ sender: Any) {
+        let toFeedbacks = self.storyboard?.instantiateViewController(withIdentifier: "FeedbackViewController") as! FeedbackViewController
+        toFeedbacks.feedbackProductID = productData.productID
+        toFeedbacks.feedbackProductCategory = productData.productCategory
+        toFeedbacks.feedbackProductName = productData.productName
+        self.navigationController?.pushViewController(toFeedbacks, animated: true)
+    }
+    
+    
     func writeToDefaults(favoriteCategory: String, favoriteID: String) {
         userDefaults.set(favoriteCategory, forKey: favoriteID)
     }
