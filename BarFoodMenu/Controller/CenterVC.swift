@@ -10,6 +10,9 @@ import UIKit
 import FAPanels
 import Firebase
 import NVActivityIndicatorView
+import FirebaseStorage
+import FirebaseCore
+import FirebaseDatabase
 
 class CenterVC: UIViewController {
     
@@ -17,6 +20,7 @@ class CenterVC: UIViewController {
     var selectcount = 0
     var selectedItemNumber = 0
     var selectProducts:[EachProduct] = []
+    var wentTodetailFlag : Bool = false
 
     //  MARK:- Class Properties
     @IBOutlet weak var collectionView: UICollectionView!
@@ -37,15 +41,56 @@ class CenterVC: UIViewController {
         else {
             guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
             self.selectProducts = products
+            self.selectProducts.sort {
+               $0.productName < $1.productName
+            }
             self.collectionView.reloadData()
             if SharedManager.shared.selectKey == "AAAAAAAAAA" {
                 self.menuTitle.title = "All Menu"
+            }
+            else if SharedManager.shared.selectKey == "AAAAAAAAAAa" {
+                self.menuTitle.title = "Favorite"
             }
             else {
                 self.menuTitle.title = SharedManager.shared.selectKey
             }
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if wentTodetailFlag == true {
+            var favoriteProducts : [EachProduct] = []
+            for key in (UserDefaults.standard.dictionaryRepresentation().keys) {
+                if let allProducts = SharedManager.shared.AllProducts["AAAAAAAAAA"] {
+                    for item in allProducts {
+                        if( item.productID == key ) {
+                            favoriteProducts.append(item)
+                        }
+                    }
+                }
+            }
+            SharedManager.shared.AllProducts["AAAAAAAAAAa"] = favoriteProducts
+            
+            guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
+            self.selectProducts = products
+            self.selectProducts.sort {
+               $0.productName < $1.productName
+            }
+            self.collectionView.reloadData()
+            if SharedManager.shared.selectKey == "AAAAAAAAAA" {
+                self.menuTitle.title = "All Menu"
+            }
+            else if SharedManager.shared.selectKey == "AAAAAAAAAAa" {
+                self.menuTitle.title = "Favorite"
+            }
+            else {
+                self.menuTitle.title = SharedManager.shared.selectKey
+            }
+        }
+        wentTodetailFlag = false
+        
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -112,9 +157,11 @@ class CenterVC: UIViewController {
                             guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
                             self.menuTitle.title = "All Menu"
                             self.selectProducts = products
+                            self.selectProducts.sort {
+                               $0.productName < $1.productName
+                            }
                             self.collectionView.reloadData()
                         }
-                                
                 })
             }
         })
@@ -145,6 +192,7 @@ extension CenterVC: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         print("selected item at \(indexPath.row)")
+        wentTodetailFlag = true
         selectedItemNumber = indexPath.row
         self.performSegue(withIdentifier: "MenuToDetail", sender: self)
         

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		091DC9742526B850005565D4 /* SBMessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DC9732526B84F005565D4 /* SBMessageInputView.swift */; };
+		091DC9762526BE62005565D4 /* WriteFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */; };
 		095DBAC225246F5E00D961B6 /* EachFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095DBAC125246F5E00D961B6 /* EachFeedback.swift */; };
 		09691D48251763CC00C0617E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D47251763CC00C0617E /* AppDelegate.swift */; };
 		09691D4A251763CC00C0617E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D49251763CC00C0617E /* SceneDelegate.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		091DC9732526B84F005565D4 /* SBMessageInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBMessageInputView.swift; sourceTree = "<group>"; };
+		091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteFeedbackViewController.swift; sourceTree = "<group>"; };
 		095DBAC125246F5E00D961B6 /* EachFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachFeedback.swift; sourceTree = "<group>"; };
 		09691D44251763CC00C0617E /* Okay Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Okay Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09691D47251763CC00C0617E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +108,7 @@
 				09691D61251766C300C0617E /* CenterVC.swift */,
 				09691D932517CD5700C0617E /* ProductDetailViewController.swift */,
 				09A0F14D2523BA700006EADB /* FeedbackViewController.swift */,
+				091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */,
 				09078962251B981300666552 /* Authentication */,
 			);
 			path = Controller;
@@ -195,6 +200,7 @@
 		09E2FF4E2519DDE300668AA1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				091DC9732526B84F005565D4 /* SBMessageInputView.swift */,
 				09E2FF502519DDE300668AA1 /* FirebaseUpload.swift */,
 				09E2FF512519DDE300668AA1 /* EachUser.swift */,
 				09691D7F251774C000C0617E /* EachProduct.swift */,
@@ -348,6 +354,7 @@
 				09A463D62519E12D007434D4 /* NavigationViewController.swift in Sources */,
 				09691D942517CD5700C0617E /* ProductDetailViewController.swift in Sources */,
 				09A463D42519E116007434D4 /* SignupViewController.swift in Sources */,
+				091DC9762526BE62005565D4 /* WriteFeedbackViewController.swift in Sources */,
 				095DBAC225246F5E00D961B6 /* EachFeedback.swift in Sources */,
 				09691D972518668500C0617E /* RightMenuCell.swift in Sources */,
 				09E2FF532519DDE300668AA1 /* FirebaseUpload.swift in Sources */,
@@ -360,6 +367,7 @@
 				09A463D32519E116007434D4 /* SigninViewController.swift in Sources */,
 				09E2FF542519DDE300668AA1 /* EachUser.swift in Sources */,
 				09691D82251774C000C0617E /* EachProduct.swift in Sources */,
+				091DC9742526B850005565D4 /* SBMessageInputView.swift in Sources */,
 				09691D4A251763CC00C0617E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,9 @@
 import UIKit
 import Firebase
 import SDWebImage
+import FirebaseDatabase
+import FirebaseCore
+import FirebaseStorage
 
 class FeedbackViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -16,6 +19,8 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
     var feedbackProductName : String!
     var feedbackProductID : String!
     var feedbackProductCategory : String!
+    var feedbacksCount : Int!
+    var feedbackAverateRate : Double!
     var EachProductFeedbacks: [EachFeedback] = []
     
     @IBOutlet weak var feedbackProductLbl: UILabel!
@@ -33,14 +38,15 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
         feedbackProductLbl.text = feedbackProductName
         feedbackAddBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
     }
+    override func viewWillAppear(_ animated: Bool) {
+        readEachFeedbackData()
+
+    }
     func readEachFeedbackData() {
         
         self.ref = Database.database().reference()
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-
         let EachProductFeedbacks = self.ref.child("Products/\(feedbackProductCategory!)/\(feedbackProductID!)/productFeedback/")
             EachProductFeedbacks.observeSingleEvent(of: DataEventType.value , with: { snapshot in
-                
                 let feedbackCount =  snapshot.childrenCount
                 var feedbackCounter = 0
                 self.EachProductFeedbacks.removeAll()
@@ -92,6 +98,14 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
             index += 1
         }
     }
+    @IBAction func toWriteAction(_ sender: Any) {
+        let toWrite = self.storyboard?.instantiateViewController(withIdentifier: "WriteFeedbackViewController") as! WriteFeedbackViewController
+        toWrite.giveProductCategory = feedbackProductCategory
+        toWrite.giveProductID = feedbackProductID
+     
+        self.navigationController?.pushViewController(toWrite, animated: true)
+
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -115,8 +129,11 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
         cell.feedbackUserPhoto.layer.cornerRadius = cell.feedbackUserPhoto.bounds.width / 2
         
         cell.feedbackUserName.text = EachProductFeedbacks[indexPath.row].FeedbackUserName
-        
-        cell.feedbackDate.text = EachProductFeedbacks[indexPath.row].FeedbackDate
+        let originDateTime = Date(milliseconds: Int64(EachProductFeedbacks[indexPath.row].FeedbackDate) ?? 0 )
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d/M/yyyy"
+        let feedbackDateChar = formatter.string(from: originDateTime)
+        cell.feedbackDate.text = feedbackDateChar
         
         cell.feedbackStar.rating = EachProductFeedbacks[indexPath.row].FeedbackRate
         cell.feedbackStar.settings.fillMode = .precise

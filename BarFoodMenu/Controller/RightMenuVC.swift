@@ -66,8 +66,12 @@ extension RightMenuVC: UITableViewDelegate, UITableViewDataSource {
 
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let centerVC: UIViewController = mainStoryboard.instantiateViewController(withIdentifier: "CenterVC")
-       
+            let centerNavVC = UINavigationController(rootViewController: centerVC)
+        
         panel!.configs.bounceOnCenterPanelChange = true
-
+        panel!.center(centerNavVC, afterThat: {
+            print("Executing block after changing center panelVC From Left Menu")
+        })
+        
     }
 }

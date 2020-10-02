@@ -9,6 +9,8 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 import FirebaseCore
+import FirebaseStorage
+import FirebaseAuth
 
 class FirebaseUpload {
     
