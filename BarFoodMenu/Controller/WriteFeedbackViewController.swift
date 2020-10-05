@@ -71,23 +71,30 @@ class WriteFeedbackViewController: UIViewController {
                 return
             }
         else {
-            giveCount = SharedManager.shared.selectedProductViewers
-            giveAverageRate = SharedManager.shared.selectedProdcutRating
-            let givestarrate = giveStar.rating
-            let giveTime = Date().millisecondsSince1970
-            self.ref = Database.database().reference()
-            self.ref.child("Products/\(giveProductCategory!)/\(giveProductID!)/productFeedback/\(giveTime)/feedbackContent").setValue(NSString(string: (giveContent.textView?.text)!))
-            self.ref.child("Products/\(giveProductCategory!)/\(giveProductID!)/productFeedback/\(giveTime)/feedbackTitle").setValue(NSString(string: (giveTitle.textView?.text)!))
-            self.ref.child("Products/\(giveProductCategory!)/\(giveProductID!)/productFeedback/\(giveTime)/feedbackUserName").setValue(NSString(utf8String: giveUserName))
-            self.ref.child("Products/\(giveProductCategory!)/\(giveProductID!)/productFeedback/\(giveTime)/feedbackUserPhoto").setValue(NSString(utf8String: giveUserPhoto))
-            self.ref.child("Products/\(giveProductCategory!)/\(giveProductID!)/productFeedback/\(giveTime)/feedbackRate").setValue(NSNumber(value: givestarrate))
-            self.ref.child("Products/\(giveProductCategory!)/\(giveProductID!)/productViewer").setValue(giveCount + 1)
-            let updateTotalRate = Double(giveCount) * giveAverageRate + givestarrate
-            let updateRate = updateTotalRate / Double(giveCount + 1)
-            SharedManager.shared.selectedProdcutRating = updateRate
-            SharedManager.shared.selectedProductViewers = giveCount + 1
-            self.ref.child("Products/\(giveProductCategory!)/\(giveProductID!)/productRating").setValue(NSNumber(value: updateRate))
-            self.navigationController?.popViewController(animated: true)        }
+            
+            let alert = UIAlertController(title: "Will you leave really this feedback?", message: "", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                self.giveCount = SharedManager.shared.selectedProductViewers
+                self.giveAverageRate = SharedManager.shared.selectedProdcutRating
+                let givestarrate = self.giveStar.rating
+                    let giveTime = Date().millisecondsSince1970
+                    self.ref = Database.database().reference()
+                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackContent").setValue(NSString(string: (self.giveContent.textView?.text)!))
+                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackTitle").setValue(NSString(string: (self.giveTitle.textView?.text)!))
+                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackUserName").setValue(NSString(utf8String: self.giveUserName))
+                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackUserPhoto").setValue(NSString(utf8String: self.giveUserPhoto))
+                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackRate").setValue(NSNumber(value: givestarrate))
+                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productViewer").setValue(self.giveCount + 1)
+                let updateTotalRate = Double(self.giveCount) * self.giveAverageRate + givestarrate
+                let updateRate = updateTotalRate / Double(self.giveCount + 1)
+                    SharedManager.shared.selectedProdcutRating = updateRate
+                SharedManager.shared.selectedProductViewers = self.giveCount + 1
+                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productRating").setValue(NSNumber(value: updateRate))
+                    self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(alert, animated: true)
+        }
     }
 
     /*

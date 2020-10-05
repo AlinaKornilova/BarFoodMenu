@@ -74,12 +74,6 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
                     self.EachProductFeedbacks.sort {
                        $0.FeedbackDate > $1.FeedbackDate
                     }
-                    if self.EachProductFeedbacks.count == 0 {
-                        self.noResult.isHidden = false
-                    }
-                    else {
-                        self.noResult.isHidden = true
-                    }
                     self.animateTable()
                 }
         })

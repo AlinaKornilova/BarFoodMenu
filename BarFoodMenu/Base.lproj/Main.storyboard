@@ -1186,12 +1186,6 @@
                                     <action selector="toWriteAction:" destination="WOK-If-VhL" eventType="touchUpInside" id="rWJ-Bh-kaT"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There are not feedbacks." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3w-QN-8iz">
-                                <rect key="frame" x="96.333333333333329" y="463.66666666666669" width="221.66666666666669" height="23"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tzv-NE-wZx">
                                 <rect key="frame" x="10" y="158" width="394" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1308,8 +1302,6 @@
                         <constraints>
                             <constraint firstItem="nGO-Ah-deA" firstAttribute="leading" secondItem="DPn-S6-RXn" secondAttribute="leading" constant="20" id="2oT-TS-uNs"/>
                             <constraint firstItem="DPn-S6-RXn" firstAttribute="trailing" secondItem="Tzv-NE-wZx" secondAttribute="trailing" constant="10" id="7uq-kw-IZz"/>
-                            <constraint firstItem="B3w-QN-8iz" firstAttribute="centerX" secondItem="DPn-S6-RXn" secondAttribute="centerX" id="8nZ-bU-eQh"/>
-                            <constraint firstItem="B3w-QN-8iz" firstAttribute="centerY" secondItem="DPn-S6-RXn" secondAttribute="centerY" id="FUp-E7-P7j"/>
                             <constraint firstItem="Tzv-NE-wZx" firstAttribute="bottom" secondItem="DPn-S6-RXn" secondAttribute="bottom" constant="30" id="L1v-9K-zcT"/>
                             <constraint firstItem="Tzv-NE-wZx" firstAttribute="leading" secondItem="DPn-S6-RXn" secondAttribute="leading" constant="10" id="V1y-zj-dqH"/>
                             <constraint firstItem="nGO-Ah-deA" firstAttribute="centerY" secondItem="2y7-6f-LkS" secondAttribute="centerY" id="V7P-Ib-rOB"/>
@@ -1324,7 +1316,6 @@
                         <outlet property="feedbackAddBtn" destination="2y7-6f-LkS" id="blc-hN-6W5"/>
                         <outlet property="feedbackProductLbl" destination="nGO-Ah-deA" id="fK6-qP-FYY"/>
                         <outlet property="feedbacksTV" destination="Tzv-NE-wZx" id="BVN-de-UIA"/>
-                        <outlet property="noResult" destination="B3w-QN-8iz" id="aR8-Sr-qA5"/>
                         <segue destination="Mr3-Fc-wor" kind="show" id="fDe-gW-Ya4"/>
                     </connections>
                 </viewController>

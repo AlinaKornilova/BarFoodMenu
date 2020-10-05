@@ -130,24 +130,27 @@ class AddMenuViewController: UIViewController {
                         return
                     }
                     else {
-                    
-                        self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productName").setValue((self.productCategory.textView?.text)!)
-                        self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productDetail").setValue((self.productName.textView?.text)!)
-                        self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productPrice").setValue("$\((self.productPrice.textView?.text)!)" )
-                        self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productImage").setValue((self.updatePhoto)!)
-                        self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productFeedback").setValue("")
-                        self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productRating").setValue(NSNumber(0))
-                        self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productViewer").setValue(NSNumber(0))
-                        self.flag = false
-                        self.navigationController?.popViewController(animated: true)
-
+                        RSLoadingView.hideFromKeyWindow()
+                        let alert = UIAlertController(title: "Will you add really this Menu?", message: "", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+                        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productName").setValue((self.productCategory.textView?.text)!)
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productDetail").setValue((self.productName.textView?.text)!)
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productPrice").setValue("$\((self.productPrice.textView?.text)!)" )
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productImage").setValue((self.updatePhoto)!)
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productFeedback").setValue("")
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productRating").setValue(NSNumber(0))
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productViewer").setValue(NSNumber(0))
+                            self.flag = false
+                            self.navigationController?.popViewController(animated: true)
+                        }))
+                        self.present(alert, animated: true)
                     }
                 }
             }
         }
         else {
             RSLoadingView.hideFromKeyWindow()
-
             Utils.shared.showAlertWith(title: "Product image is empty!", content: "Please enter product image!", viewController: self)
             return
         }
