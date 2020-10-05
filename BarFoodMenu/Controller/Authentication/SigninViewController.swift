@@ -94,11 +94,15 @@ class SigninViewController: UIViewController {
             // alert
             return
         }
+        
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             
            if error == nil {
-             RSLoadingView.hideFromKeyWindow()
-             self.createFAPanels()
+                RSLoadingView.hideFromKeyWindow()
+                if password == "111111" && email == "test1@test.com" {
+                    SharedManager.shared.admin = true
+                }
+                self.createFAPanels()
            }
            else {
                 RSLoadingView.hideFromKeyWindow()
@@ -109,11 +113,14 @@ class SigninViewController: UIViewController {
                 self.present(alertController, animated: true, completion: nil)
             }
         }
+        
     }
     
     @IBAction func toSignupAction(_ sender: Any) {
         let toSignup = self.storyboard?.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
-        self.navigationController?.pushViewController(toSignup, animated: true)
+        UIApplication.shared.windows.first?.rootViewController = toSignup
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+//        self.navigationController?.pushViewController(toSignup, animated: true)
 
     }
     

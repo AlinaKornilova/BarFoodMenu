@@ -21,13 +21,17 @@ class LeftMenuVC: UIViewController {
     var ref: DatabaseReference!
     var storageRef = Storage.storage().reference()
     var currentPhoto: String!
+    var currentName: String!
     var updatePhoto: String!
     var toUpImage: UIImage!
     var flag : Bool = false
 
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var changeBtn: UIButton!
     @IBOutlet weak var UpdateImage: UIImageView!
     @IBOutlet weak var UpdatePhotoBtn: UIButton!
-
+    @IBOutlet weak var signoutBtn: UIButton!
+    
     
     @IBOutlet var tableView: UITableView!
     
@@ -42,6 +46,8 @@ class LeftMenuVC: UIViewController {
         let value = snapshot.value as? NSDictionary
             
         self.currentPhoto = value?["userProfile"] as? String
+        self.currentName = value?["userName"] as? String
+        self.userName.text = self.currentName
             
             let url = URL(string: self.currentPhoto!)
             self.UpdateImage.sd_setImage(with: url, placeholderImage: UIImage(named: "userAvatar"), options: SDWebImageOptions(rawValue: 0), completed: { (image, error, cacheType, imageURL) in
@@ -54,45 +60,95 @@ class LeftMenuVC: UIViewController {
             self.UpdateImage.layer.cornerRadius = self.UpdateImage.bounds.width / 2
         })
     }
-        @IBAction func SelectPhoto(_ sender: Any) {
-            CameraHandler.shared.showActionSheet(vc: self)
-            CameraHandler.shared.imagePickedBlock = { (image) in
-            self.UpdateImage.image = image
-                self.toUpImage = image
-                self.flag = true
-                self.UpdateInfo()
-            }
+    @IBAction func SelectPhoto(_ sender: Any) {
+        CameraHandler.shared.showActionSheet(vc: self)
+        CameraHandler.shared.imagePickedBlock = { (image) in
+        self.UpdateImage.image = image
+            self.toUpImage = image
+            self.flag = true
+            self.UpdateInfo()
         }
-        func UpdateInfo() {
-            guard let userID = Auth.auth().currentUser?.uid else { return }
-            self.ref = Database.database().reference()
-                        
-            if flag == true {
-                let imageData = self.toUpImage.jpegData(compressionQuality: 0.1)
-                let riversRef = self.storageRef.child("profiles").child("\(userID)")
-                let metaDataConfig = StorageMetadata()
-                metaDataConfig.contentType = "image/jpg"
-                // Upload the file to the path "images/rivers.jpg"
-                _ = riversRef.putData(imageData!, metadata: metaDataConfig) { (metadata, error) in
-                    guard let metadata = metadata else {
+    }
+    func UpdateInfo() {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        self.ref = Database.database().reference()
+                    
+        if flag == true {
+            let imageData = self.toUpImage.jpegData(compressionQuality: 0.1)
+            let riversRef = self.storageRef.child("profiles").child("\(userID)")
+            let metaDataConfig = StorageMetadata()
+            metaDataConfig.contentType = "image/jpg"
+            // Upload the file to the path "images/rivers.jpg"
+            _ = riversRef.putData(imageData!, metadata: metaDataConfig) { (metadata, error) in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                // Metadata contains file metadata such as size, content-type.
+                _ = metadata.size
+                // You can also access to download URL after upload.
+                riversRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
                         // Uh-oh, an error occurred!
                         return
                     }
-                    // Metadata contains file metadata such as size, content-type.
-                    _ = metadata.size
-                    // You can also access to download URL after upload.
-                    riversRef.downloadURL { (url, error) in
-                        guard let downloadURL = url else {
-                            // Uh-oh, an error occurred!
-                            return
-                        }
-                        self.updatePhoto = downloadURL.absoluteString
-                        self.ref.child("USERS/\(userID)/userProfile").setValue("\(self.updatePhoto!)")
-                        self.flag = false
-                    }
+                    self.updatePhoto = downloadURL.absoluteString
+                    self.ref.child("USERS/\(userID)/userProfile").setValue("\(self.updatePhoto!)")
+                    self.flag = false
                 }
             }
         }
+    }
+
+    @IBAction func changeName(_ sender: Any) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        self.ref = Database.database().reference()
+        // 1.
+        var usernameTextField: UITextField?
+        // 2.
+        let alertController = UIAlertController(
+            title: "Change your name!",
+            message: "Enter your new name.",
+            preferredStyle: .alert)
+        // 3.
+        let loginAction = UIAlertAction(
+        title: "OK", style: .default) {
+            (action) -> Void in
+
+            if let username = usernameTextField?.text {
+                print(" Username = \(username)")
+                if username == "" {
+                    Utils.shared.showAlertWith(title: "Username is empty!", content: "Please enter your username!", viewController: self)
+                    return
+                }
+                else {
+                    self.userName.text = username
+                    self.ref.child("USERS/\(userID)/userName").setValue(username)
+                }
+                
+            } else {
+                print("No Username entered")
+            }
+        }
+
+        // 4.
+        alertController.addTextField {
+            (txtUsername) -> Void in
+            usernameTextField = txtUsername
+            usernameTextField!.placeholder = "<Your username here>"
+        }
+        // 5.
+        alertController.addAction(loginAction)
+        present(alertController, animated: true, completion: nil)
+
+    }
+    @IBAction func SignoutBtnAction(_ sender: Any) {
+        do { try Auth.auth().signOut() }
+        catch { print("already logged out") }
+        let toSignin = self.storyboard?.instantiateViewController(withIdentifier: "SigninViewController") as! SigninViewController
+        UIApplication.shared.windows.first?.rootViewController = toSignin
+        UIApplication.shared.windows.first?.makeKeyAndVisible()        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -122,8 +178,12 @@ extension LeftMenuVC: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return SharedManager.shared.AllProducts.count
+        if SharedManager.shared.AllProducts.keys.contains("AAAAAAAAAAa") {
+            return SharedManager.shared.AllProducts.count
+        }
+        else {
+            return  SharedManager.shared.AllProducts.count + 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,10 +198,17 @@ extension LeftMenuVC: UITableViewDataSource, UITableViewDelegate {
             cell.menuOption.text = "Favorite"
         }
         else {
-            cell.menuOption.text = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row ]
+            if SharedManager.shared.AllProducts.keys.contains("AAAAAAAAAAa") {
+                cell.menuOption.text = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row ]
+            }
+            else {
+                cell.menuOption.text = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row - 1 ]
+            }
         }
+        cell.menuImage.image = UIImage(named: "icon")
+        print(Array(SharedManager.shared.AllProducts.keys))
 
-        cell.menuImage.image = UIImage(named: "icons" + String( indexPath.row ))
+//        cell.menuImage.image = UIImage(named: "icons" + String( indexPath.row ))
 
         return cell
     }

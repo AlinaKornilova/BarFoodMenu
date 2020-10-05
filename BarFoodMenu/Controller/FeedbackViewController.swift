@@ -26,6 +26,7 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var feedbackProductLbl: UILabel!
     @IBOutlet weak var feedbackAddBtn: UIButton!
     @IBOutlet weak var feedbacksTV: UITableView!
+    @IBOutlet weak var noResult: UILabel!
     
     
     override func viewDidLoad() {
@@ -33,10 +34,12 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.feedbacksTV.delegate = self
         self.feedbacksTV.dataSource = self
-        readEachFeedbackData()
         // Do any additional setup after loading the view.
         feedbackProductLbl.text = feedbackProductName
+        
         feedbackAddBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
+        
+        feedbacksTV.backgroundColor = .red
     }
     override func viewWillAppear(_ animated: Bool) {
         readEachFeedbackData()
@@ -70,6 +73,12 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
                 if feedbackCounter == feedbackCount {
                     self.EachProductFeedbacks.sort {
                        $0.FeedbackDate > $1.FeedbackDate
+                    }
+                    if self.EachProductFeedbacks.count == 0 {
+                        self.noResult.isHidden = false
+                    }
+                    else {
+                        self.noResult.isHidden = true
                     }
                     self.animateTable()
                 }
@@ -106,9 +115,7 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
         self.navigationController?.pushViewController(toWrite, animated: true)
 
     }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tableView.backgroundColor = UIColor.lightGray
         return EachProductFeedbacks.count
@@ -144,8 +151,8 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
         
         
         let titleAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 20.0) as Any]
-        let contentAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 17.0) as Any]
-        let titleString = NSMutableAttributedString(string: "  \(EachProductFeedbacks[indexPath.row].FeedbackTitle)", attributes: titleAttributes)
+        let contentAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 18.0) as Any]
+        let titleString = NSMutableAttributedString(string: " \(EachProductFeedbacks[indexPath.row].FeedbackTitle)", attributes: titleAttributes)
         let contentString = NSAttributedString(string: "\n\(EachProductFeedbacks[indexPath.row].FeedbackContent)", attributes: contentAttributes)
         titleString.append(contentString)
         cell.feedbackContent.attributedText = titleString

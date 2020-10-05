@@ -33,6 +33,7 @@
 		09A463D32519E116007434D4 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D12519E115007434D4 /* SigninViewController.swift */; };
 		09A463D42519E116007434D4 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D22519E116007434D4 /* SignupViewController.swift */; };
 		09A463D62519E12D007434D4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D52519E12D007434D4 /* NavigationViewController.swift */; };
+		09A9ED2F2527A73C003A77D6 /* AddMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A9ED2E2527A73C003A77D6 /* AddMenuViewController.swift */; };
 		09E2FF4C2518FB7200668AA1 /* CameraHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FF4A2518FB7200668AA1 /* CameraHandler.swift */; };
 		09E2FF4D2518FB7200668AA1 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FF4B2518FB7200668AA1 /* Utils.swift */; };
 		09E2FF532519DDE300668AA1 /* FirebaseUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E2FF502519DDE300668AA1 /* FirebaseUpload.swift */; };
@@ -44,7 +45,7 @@
 		091DC9732526B84F005565D4 /* SBMessageInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBMessageInputView.swift; sourceTree = "<group>"; };
 		091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteFeedbackViewController.swift; sourceTree = "<group>"; };
 		095DBAC125246F5E00D961B6 /* EachFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachFeedback.swift; sourceTree = "<group>"; };
-		09691D44251763CC00C0617E /* Okay Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Okay Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09691D44251763CC00C0617E /* My Home Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Home Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09691D47251763CC00C0617E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09691D49251763CC00C0617E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		09691D4E251763CC00C0617E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -69,6 +70,7 @@
 		09A463D12519E115007434D4 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		09A463D22519E116007434D4 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		09A463D52519E12D007434D4 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		09A9ED2E2527A73C003A77D6 /* AddMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMenuViewController.swift; sourceTree = "<group>"; };
 		09E2FF4A2518FB7200668AA1 /* CameraHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraHandler.swift; sourceTree = "<group>"; };
 		09E2FF4B2518FB7200668AA1 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		09E2FF502519DDE300668AA1 /* FirebaseUpload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUpload.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				09691D932517CD5700C0617E /* ProductDetailViewController.swift */,
 				09A0F14D2523BA700006EADB /* FeedbackViewController.swift */,
 				091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */,
+				09A9ED2E2527A73C003A77D6 /* AddMenuViewController.swift */,
 				09078962251B981300666552 /* Authentication */,
 			);
 			path = Controller;
@@ -144,7 +147,7 @@
 		09691D45251763CC00C0617E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				09691D44251763CC00C0617E /* Okay Bar.app */,
+				09691D44251763CC00C0617E /* My Home Bar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -246,7 +249,7 @@
 			);
 			name = BarFoodMenu;
 			productName = BarFoodMenu;
-			productReference = 09691D44251763CC00C0617E /* Okay Bar.app */;
+			productReference = 09691D44251763CC00C0617E /* My Home Bar.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -345,6 +348,7 @@
 			files = (
 				09A0F14E2523BA700006EADB /* FeedbackViewController.swift in Sources */,
 				09691D85251776B000C0617E /* SharedManager.swift in Sources */,
+				09A9ED2F2527A73C003A77D6 /* AddMenuViewController.swift in Sources */,
 				09691D8E2517A90400C0617E /* SInce1970.swift in Sources */,
 				09691D5E251766B300C0617E /* LeftMenuVC.swift in Sources */,
 				09691D83251774C000C0617E /* AnnotatedPhotoCell.swift in Sources */,
@@ -520,7 +524,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = brandon.BarFoodMenu;
-				PRODUCT_NAME = "Okay Bar";
+				PRODUCT_NAME = "My Home Bar";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -538,7 +542,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = brandon.BarFoodMenu;
-				PRODUCT_NAME = "Okay Bar";
+				PRODUCT_NAME = "My Home Bar";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

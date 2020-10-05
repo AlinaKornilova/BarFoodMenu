@@ -97,7 +97,8 @@ class SignupViewController: UIViewController {
                 return
             }
             print("created")
-            let userInformation: NSDictionary = ["userName": self.userName.text!, "userEmail": self.userEmail.text!, "userPassword": self.userPassword.text!, "userProfile" : "https://firebasestorage.googleapis.com/v0/b/mathfest-virtual-remote.appspot.com/o/profiles%2Favatar_default.png?alt=media&token=f605caa0-48a1-422c-b612-50601795589c"]
+            
+            let userInformation: NSDictionary = ["userName": self.userName.text!, "userEmail": self.userEmail.text!, "userPassword": self.userPassword.text!, "userProfile" : "https://firebasestorage.googleapis.com/v0/b/bar-menu-74786.appspot.com/o/ProductImage%2FdefaultAvatar.png?alt=media&token=e5cafb82-2e1c-427f-a250-2d77664c4375"]
             self.firebaseUpload.UpdateUserInfo(with: userInformation) { (error) in
                 if let error = error {
                     RSLoadingView.hideFromKeyWindow()
@@ -111,7 +112,10 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func toSigninAction(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        let toSignin = self.storyboard?.instantiateViewController(withIdentifier: "SigninViewController") as! SigninViewController
+        UIApplication.shared.windows.first?.rootViewController = toSignin
+        UIApplication.shared.windows.first?.makeKeyAndVisible()
+//        self.navigationController?.popViewController(animated: true)
     }
     
     func createFAPanels() {

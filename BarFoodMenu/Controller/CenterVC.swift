@@ -13,6 +13,7 @@ import NVActivityIndicatorView
 import FirebaseStorage
 import FirebaseCore
 import FirebaseDatabase
+import RSLoadingView
 
 class CenterVC: UIViewController {
     
@@ -26,11 +27,19 @@ class CenterVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var menuTitle: UINavigationItem!
     @IBOutlet weak var loadingViewBig: NVActivityIndicatorView!
-
+    @IBOutlet weak var addmenuBtn: UIBarButtonItem!
+    
     //  MARK:- Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (SharedManager.shared.admin == true) {
+            addmenuBtn.isEnabled = true
+        }
+        else {
+            addmenuBtn.isEnabled = false
+        }
         
         loadingViewBig.stopAnimating()
 
@@ -58,37 +67,43 @@ class CenterVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         
-        if wentTodetailFlag == true {
-            var favoriteProducts : [EachProduct] = []
-            for key in (UserDefaults.standard.dictionaryRepresentation().keys) {
-                if let allProducts = SharedManager.shared.AllProducts["AAAAAAAAAA"] {
-                    for item in allProducts {
-                        if( item.productID == key ) {
-                            favoriteProducts.append(item)
+        if SharedManager.shared.addmenuFlag == false {
+            if wentTodetailFlag == true {
+                var favoriteProducts : [EachProduct] = []
+                for key in (UserDefaults.standard.dictionaryRepresentation().keys) {
+                    if let allProducts = SharedManager.shared.AllProducts["AAAAAAAAAA"] {
+                        for item in allProducts {
+                            if( item.productID == key ) {
+                                favoriteProducts.append(item)
+                            }
                         }
                     }
                 }
-            }
-            SharedManager.shared.AllProducts["AAAAAAAAAAa"] = favoriteProducts
-            
-            guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
-            self.selectProducts = products
-            self.selectProducts.sort {
-               $0.productName < $1.productName
-            }
-            self.collectionView.reloadData()
-            if SharedManager.shared.selectKey == "AAAAAAAAAA" {
-                self.menuTitle.title = "All Menu"
-            }
-            else if SharedManager.shared.selectKey == "AAAAAAAAAAa" {
-                self.menuTitle.title = "Favorite"
-            }
-            else {
-                self.menuTitle.title = SharedManager.shared.selectKey
+                SharedManager.shared.AllProducts["AAAAAAAAAAa"] = favoriteProducts
+                
+                guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
+                self.selectProducts = products
+                self.selectProducts.sort {
+                   $0.productName < $1.productName
+                }
+                self.collectionView.reloadData()
+                if SharedManager.shared.selectKey == "AAAAAAAAAA" {
+                    self.menuTitle.title = "All Menu"
+                }
+                else if SharedManager.shared.selectKey == "AAAAAAAAAAa" {
+                    self.menuTitle.title = "Favorite"
+                }
+                else {
+                    self.menuTitle.title = SharedManager.shared.selectKey
+                }
+                wentTodetailFlag = false
             }
         }
-        wentTodetailFlag = false
-        
+        else {
+            self.readEachProductData()
+            SharedManager.shared.addmenuFlag = false
+        }
+               
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,14 +118,20 @@ class CenterVC: UIViewController {
     }
     
     @IBAction func showRightVC(_ sender: Any) {
-        panel?.openRight(animated: true)
+        
+           let toAddmenu = self.storyboard?.instantiateViewController(withIdentifier: "AddMenuViewController") as! AddMenuViewController
+           self.navigationController?.pushViewController(toAddmenu, animated: true)
+        //panel?.openRight(animated: true)
     }
     
     func readEachProductData() {
         
+        let loadingView = RSLoadingView()
+        loadingView.showOnKeyWindow()
+        
             self.ref = Database.database().reference()
             let ProductsCategory = self.ref.child("Products")
-            ProductsCategory.observeSingleEvent(of: DataEventType.value , with: { snapshot in
+            ProductsCategory.observe(DataEventType.value , with: { snapshot in
                 
                 let categoryCount = snapshot.childrenCount
                 var categoryCounter = 0
@@ -123,7 +144,7 @@ class CenterVC: UIViewController {
                     let eachCategoryName = eachCategoryAllData.key as String?
                     let ProductsID = self.ref.child("Products").child(eachCategoryName!)
                     
-                    ProductsID.observeSingleEvent(of: DataEventType.value , with: { snapshot in
+                    ProductsID.observe(DataEventType.value , with: { snapshot in
                         
                         categoryCounter = categoryCounter + 1
                         
@@ -161,6 +182,7 @@ class CenterVC: UIViewController {
                                $0.productName < $1.productName
                             }
                             self.collectionView.reloadData()
+                            RSLoadingView.hideFromKeyWindow()
                         }
                 })
             }

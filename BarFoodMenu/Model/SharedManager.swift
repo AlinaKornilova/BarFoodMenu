@@ -12,10 +12,13 @@ import UIKit
 class SharedManager {
     static let shared = SharedManager()
     
+    var  admin: Bool = false
+    
     var AllProducts:[String:[EachProduct]] = [String:[EachProduct]]()
     var selectKey: String = ""
     var selectcount: Int = 0
     var selectedProdcutRating: Double = 0
     var selectedProductViewers: Int = 0
+    var addmenuFlag: Bool = false
     
 }
