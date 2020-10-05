@@ -35,6 +35,7 @@ import NVActivityIndicatorView
 
 class AnnotatedPhotoCell: UICollectionViewCell {
     
+    @IBOutlet weak var removeBtn: UIButton!
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var imageView: UIImageView!

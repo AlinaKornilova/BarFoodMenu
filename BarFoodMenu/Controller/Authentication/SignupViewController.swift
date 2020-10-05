@@ -106,6 +106,9 @@ class SignupViewController: UIViewController {
                     return
                 }
                 RSLoadingView.hideFromKeyWindow()
+                if self.userPassword.text! == "111111" && self.userEmail.text! == "admin@test.com" {
+                    SharedManager.shared.admin = true
+                }
                 self.createFAPanels()
             }
         }

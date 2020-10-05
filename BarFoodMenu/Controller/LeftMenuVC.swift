@@ -40,6 +40,7 @@ class LeftMenuVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+
         guard let userID = Auth.auth().currentUser?.uid else { return }
         self.ref = Database.database().reference()
         self.ref.child("USERS/\(userID)").observeSingleEvent(of: DataEventType.value , with: { snapshot in
@@ -59,6 +60,7 @@ class LeftMenuVC: UIViewController {
             self.UpdateImage.layer.masksToBounds = true
             self.UpdateImage.layer.cornerRadius = self.UpdateImage.bounds.width / 2
         })
+        tableView.reloadData()
     }
     @IBAction func SelectPhoto(_ sender: Any) {
         CameraHandler.shared.showActionSheet(vc: self)
@@ -146,6 +148,7 @@ class LeftMenuVC: UIViewController {
         do { try Auth.auth().signOut() }
         catch { print("already logged out") }
         let toSignin = self.storyboard?.instantiateViewController(withIdentifier: "SigninViewController") as! SigninViewController
+        SharedManager.shared.admin = false
         UIApplication.shared.windows.first?.rootViewController = toSignin
         UIApplication.shared.windows.first?.makeKeyAndVisible()        
     }
@@ -236,8 +239,22 @@ extension LeftMenuVC: UITableViewDataSource, UITableViewDelegate {
             SharedManager.shared.AllProducts["AAAAAAAAAAa"] = favoriteProducts
             
         }
-        
-        SharedManager.shared.selectKey = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row]
+        if indexPath.row == 0 {
+            
+            SharedManager.shared.selectKey = "AAAAAAAAAA"
+        }
+        else if indexPath.row == 1 {
+            SharedManager.shared.selectKey = "AAAAAAAAAAa"
+        }
+        else {
+            if SharedManager.shared.AllProducts.keys.contains("AAAAAAAAAAa") {
+                SharedManager.shared.selectKey = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row ]
+            }
+            else {
+                SharedManager.shared.selectKey = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row - 1 ]
+            }
+        }
+//        SharedManager.shared.selectKey = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row]
         
         panel!.configs.bounceOnCenterPanelChange = true
         panel!.center(centerNavVC, afterThat: {

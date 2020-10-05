@@ -99,7 +99,7 @@ class SigninViewController: UIViewController {
             
            if error == nil {
                 RSLoadingView.hideFromKeyWindow()
-                if password == "111111" && email == "test1@test.com" {
+                if password == "111111" && email == "admin@test.com" {
                     SharedManager.shared.admin = true
                 }
                 self.createFAPanels()
