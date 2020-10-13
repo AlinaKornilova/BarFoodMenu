@@ -34,18 +34,11 @@ class CenterVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (SharedManager.shared.admin == true) {
-            addmenuBtn.isEnabled = true
-        }
-        else {
-            addmenuBtn.isEnabled = false
-        }
         
         loadingViewBig.stopAnimating()
 
         if SharedManager.shared.AllProducts.count == 0 {
             self.readEachProductData()
-
         }
         else {
             guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
@@ -144,7 +137,7 @@ class CenterVC: UIViewController {
                     let eachCategoryName = eachCategoryAllData.key as String?
                     let ProductsID = self.ref.child("Products").child(eachCategoryName!)
                     
-                    ProductsID.observe(DataEventType.value , with: { snapshot in
+                    ProductsID.observeSingleEvent(of: DataEventType.value , with: { snapshot in
                         
                         categoryCounter = categoryCounter + 1
                         
@@ -160,14 +153,11 @@ class CenterVC: UIViewController {
                                 eachProductImage = eachProductImageTemp
                             }
                             
-                            let eachProductPrice = eachProductData["productPrice"] as! String
-                            let eachProductRating = eachProductData["productRating"] as! NSNumber
-                            let eachProductDetail = eachProductData["productDetail"] as! String
-                            let eachProductViewer = eachProductData["productViewer"] as! NSNumber
+                            let eachProductDetail = eachProductData["productDetail"] as? String
 
-                            EachCategoryProducts.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!,  productPrice: eachProductPrice, productRating: Double(eachProductRating), productDetail: eachProductDetail, productViewer: Int( eachProductViewer ), productCategory: eachCategoryName!))
+                            EachCategoryProducts.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!, productDetail: eachProductDetail!, productCategory: eachCategoryName!))
                                     
-                            allProductsForAllMenu.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!,  productPrice: eachProductPrice, productRating: Double(eachProductRating), productDetail: eachProductDetail, productViewer: Int( eachProductViewer ), productCategory: eachCategoryName!))
+                            allProductsForAllMenu.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!, productDetail: eachProductDetail!, productCategory: eachCategoryName!))
                         }
                         
                         SharedManager.shared.AllProducts[eachCategoryName!] = EachCategoryProducts

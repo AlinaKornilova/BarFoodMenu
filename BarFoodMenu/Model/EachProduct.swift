@@ -14,20 +14,18 @@ class EachProduct {
     var productID: String
     var productName: String
     var productImgUrl: String
-    var productPrice: String
-    var productRating: Double
+//    var productRating: Double
     var productDetail: String
-    var productViewer: Int
+//    var productViewer: Int
     var productCategory: String
     
-    init(productID: String, productName: String, productImgUrl: String, productPrice: String, productRating: Double, productDetail: String, productViewer: Int, productCategory: String) {
+    init(productID: String, productName: String, productImgUrl: String,  productDetail: String, productCategory: String) {
         self.productID = productID
         self.productName = productName
         self.productImgUrl = productImgUrl
-        self.productPrice = productPrice
-        self.productRating = productRating
+//        self.productRating = productRating
         self.productDetail =  productDetail
-        self.productViewer = productViewer
+//        self.productViewer = productViewer
         self.productCategory = productCategory
     }
 }

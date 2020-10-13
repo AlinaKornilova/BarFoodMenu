@@ -29,14 +29,25 @@ class AddMenuViewController: UIViewController {
     @IBOutlet weak var productCategory: SBMessageInputView!
     @IBOutlet weak var productName: SBMessageInputView!
     @IBOutlet weak var productDetail: SBMessageInputView!
-    @IBOutlet weak var productPrice: SBMessageInputView!
+    
+    var tapGesture: UITapGestureRecognizer!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         productImg.layer.cornerRadius = 8
         self.addmenuBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
+        
+        //Mark  --- textfield refuse begin---
+                self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.ViewEndEditing))
+                self.tapGesture.numberOfTapsRequired = 1
+                self.view.addGestureRecognizer(self.tapGesture)
+        //Mark  --- textfield refuse end---
         // Do any additional setup after loading the view.
+    }
+    @objc func ViewEndEditing() {
+        self.view.endEditing(true)
     }
     
     @IBAction func SelectPhoto(_ sender: Any) {
@@ -117,30 +128,15 @@ class AddMenuViewController: UIViewController {
                         Utils.shared.showAlertWith(title: "Product detail'content is too weak!", content: "Please enter more characters than 5 !", viewController: self)
                         return
                     }
-                    else if (self.productPrice.textView?.text)! == "36.5" {
-                        RSLoadingView.hideFromKeyWindow()
-
-                        Utils.shared.showAlertWith(title: "Product price is empty!", content: "Please enter product price!", viewController: self)
-                        return
-                    }
-                   else if (self.productPrice.textView?.text)!.count <= 0 {
-                        RSLoadingView.hideFromKeyWindow()
-
-                        Utils.shared.showAlertWith(title: "Product price'content is too weak!", content: "Please enter more characters than 5 !", viewController: self)
-                        return
-                    }
                     else {
                         RSLoadingView.hideFromKeyWindow()
                         let alert = UIAlertController(title: "Will you add really this Menu?", message: "", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
                         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productName").setValue((self.productCategory.textView?.text)!)
-                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productDetail").setValue((self.productName.textView?.text)!)
-                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productPrice").setValue("$\((self.productPrice.textView?.text)!)" )
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productName").setValue((self.productName.textView?.text)!)
+                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productDetail").setValue((self.productDetail.textView?.text)!)
+                            print((self.productDetail.textView?.text)!)
                             self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productImage").setValue((self.updatePhoto)!)
-                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productFeedback").setValue("")
-                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productRating").setValue(NSNumber(0))
-                            self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productViewer").setValue(NSNumber(0))
                             self.flag = false
                             self.navigationController?.popViewController(animated: true)
                         }))

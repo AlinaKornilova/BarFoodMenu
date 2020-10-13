@@ -28,6 +28,7 @@ class SignupViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
 //Mark  SignupBtn Style start
         self.SignupBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
 //Mark  SignupBtn Style end
@@ -52,7 +53,11 @@ class SignupViewController: UIViewController {
             toSigninBtn.setAttributedTitle(attributedString, for: .normal)
             self.view.addSubview(toSigninBtn)
          }
-//Mark  --- toSignin button begin---
+        //Mark  --- textfield refuse begin---
+                self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.ViewEndEditing))
+                self.tapGesture.numberOfTapsRequired = 1
+                self.view.addGestureRecognizer(self.tapGesture)
+        //Mark  --- textfield refuse end---
     }
     
     @objc func ViewEndEditing() {
@@ -141,19 +146,30 @@ class SignupViewController: UIViewController {
     }
     
 }
-extension SignupViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        if textField == self.userConfirmPassword {
-            self.view.endEditing(true)
-        }
-        
-    }
-    
-}
+//extension SignupViewController: UITextFieldDelegate {
+//
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
+//
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//
+//        if textField == self.userConfirmPassword {
+//            self.view.endEditing(true)
+//        }
+//
+//    }
+//
+//}
+
+//extension UIViewController {
+//    func hideKeyboardWhenTappedAround() {
+//     let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action:    #selector(UIViewController.dismissKeyboard))
+//      tap.cancelsTouchesInView = false
+//      view.addGestureRecognizer(tap)
+//    }
+//    @objc func dismissKeyboard() {
+//       view.endEditing(true)
+//    }
+//}

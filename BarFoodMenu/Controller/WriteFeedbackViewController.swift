@@ -26,7 +26,7 @@ class WriteFeedbackViewController: UIViewController {
     var ref: DatabaseReference!
 
 
-    @IBOutlet weak var giveStar: CosmosView!
+//    @IBOutlet weak var giveStar: CosmosView!
     @IBOutlet weak var giveTitle: SBMessageInputView!
     @IBOutlet weak var giveContent: SBMessageInputView!
     @IBOutlet weak var submitBtn: UIButton!
@@ -34,11 +34,11 @@ class WriteFeedbackViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        giveStar.settings.fillMode = .precise
-        giveStar.settings.starSize = 35
-        giveStar.settings.filledColor = UIColor.orange
-        giveStar.settings.emptyBorderColor = UIColor.orange
-        giveStar.settings.filledBorderColor = UIColor.orange
+//        giveStar.settings.fillMode = .precise
+//        giveStar.settings.starSize = 35
+//        giveStar.settings.filledColor = UIColor.orange
+//        giveStar.settings.emptyBorderColor = UIColor.orange
+//        giveStar.settings.filledBorderColor = UIColor.orange
         
         submitBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
         
@@ -77,20 +77,20 @@ class WriteFeedbackViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
                 self.giveCount = SharedManager.shared.selectedProductViewers
                 self.giveAverageRate = SharedManager.shared.selectedProdcutRating
-                let givestarrate = self.giveStar.rating
+//                let givestarrate = self.giveStar.rating
                     let giveTime = Date().millisecondsSince1970
                     self.ref = Database.database().reference()
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackContent").setValue(NSString(string: (self.giveContent.textView?.text)!))
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackTitle").setValue(NSString(string: (self.giveTitle.textView?.text)!))
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackUserName").setValue(NSString(utf8String: self.giveUserName))
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackUserPhoto").setValue(NSString(utf8String: self.giveUserPhoto))
-                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackRate").setValue(NSNumber(value: givestarrate))
+//                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackRate").setValue(NSNumber(value: givestarrate))
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productViewer").setValue(self.giveCount + 1)
-                let updateTotalRate = Double(self.giveCount) * self.giveAverageRate + givestarrate
-                let updateRate = updateTotalRate / Double(self.giveCount + 1)
-                    SharedManager.shared.selectedProdcutRating = updateRate
+//                let updateTotalRate = Double(self.giveCount) * self.giveAverageRate + givestarrate
+//                let updateRate = updateTotalRate / Double(self.giveCount + 1)
+//                    SharedManager.shared.selectedProdcutRating = updateRate
                 SharedManager.shared.selectedProductViewers = self.giveCount + 1
-                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productRating").setValue(NSNumber(value: updateRate))
+//                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productRating").setValue(NSNumber(value: updateRate))
                     self.navigationController?.popViewController(animated: true)
             }))
             self.present(alert, animated: true)

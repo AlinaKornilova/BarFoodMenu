@@ -26,7 +26,6 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var feedbackProductLbl: UILabel!
     @IBOutlet weak var feedbackAddBtn: UIButton!
     @IBOutlet weak var feedbacksTV: UITableView!
-    @IBOutlet weak var noResult: UILabel!
     
     
     override func viewDidLoad() {
@@ -66,9 +65,9 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     let eachProducteachFeedbackTitle = eachProducteachFeedbackData["feedbackTitle"] as! String
                     let eachProducteachFeedbackContent = eachProducteachFeedbackData["feedbackContent"] as! String
-                    let eachProducteachFeedbackRate = eachProducteachFeedbackData["feedbackRate"] as! NSNumber
+//                    let eachProducteachFeedbackRate = eachProducteachFeedbackData["feedbackRate"] as! NSNumber
                     
-                    self.EachProductFeedbacks.append(EachFeedback(FeedbackDate: eachProducteachFeedbackID!, FeedbackUserName: eachProducteachFeedbackUserName, FeedbackUserPhoto: eachProducteachFeedbackUserPhoto!, FeedbackRate: Double(eachProducteachFeedbackRate), FeedbackTitle: eachProducteachFeedbackTitle, FeedbackContent: eachProducteachFeedbackContent))
+                    self.EachProductFeedbacks.append(EachFeedback(FeedbackDate: eachProducteachFeedbackID!, FeedbackUserName: eachProducteachFeedbackUserName, FeedbackUserPhoto: eachProducteachFeedbackUserPhoto!, FeedbackTitle: eachProducteachFeedbackTitle, FeedbackContent: eachProducteachFeedbackContent))
                 }
                 if feedbackCounter == feedbackCount {
                     self.EachProductFeedbacks.sort {
@@ -136,12 +135,12 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
         let feedbackDateChar = formatter.string(from: originDateTime)
         cell.feedbackDate.text = feedbackDateChar
         
-        cell.feedbackStar.rating = EachProductFeedbacks[indexPath.row].FeedbackRate
-        cell.feedbackStar.settings.fillMode = .precise
-        cell.feedbackStar.settings.starSize = 25
-        cell.feedbackStar.settings.filledColor = UIColor.orange
-        cell.feedbackStar.settings.emptyBorderColor = UIColor.orange
-        cell.feedbackStar.settings.filledBorderColor = UIColor.orange
+//        cell.feedbackStar.rating = EachProductFeedbacks[indexPath.row].FeedbackRate
+//        cell.feedbackStar.settings.fillMode = .precise
+//        cell.feedbackStar.settings.starSize = 25
+//        cell.feedbackStar.settings.filledColor = UIColor.orange
+//        cell.feedbackStar.settings.emptyBorderColor = UIColor.orange
+//        cell.feedbackStar.settings.filledBorderColor = UIColor.orange
         
         
         let titleAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 20.0) as Any]

@@ -14,6 +14,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseCore
 import FirebaseStorage
+import RSLoadingView
 
 class LeftMenuVC: UIViewController {
     
@@ -60,7 +61,61 @@ class LeftMenuVC: UIViewController {
             self.UpdateImage.layer.masksToBounds = true
             self.UpdateImage.layer.cornerRadius = self.UpdateImage.bounds.width / 2
         })
-        tableView.reloadData()
+        readEachProductData()
+    }
+    func readEachProductData() {
+        
+        let loadingView = RSLoadingView()
+        loadingView.showOnKeyWindow()
+        
+            self.ref = Database.database().reference()
+            let ProductsCategory = self.ref.child("Products")
+            ProductsCategory.observe(DataEventType.value , with: { snapshot in
+                
+                let categoryCount = snapshot.childrenCount
+                var categoryCounter = 0
+                var allProductsForAllMenu: [EachProduct] = []
+                
+                for item in snapshot.children {
+                        
+                    var EachCategoryProducts: [EachProduct] = []
+                    let eachCategoryAllData = item as! DataSnapshot
+                    let eachCategoryName = eachCategoryAllData.key as String?
+                    let ProductsID = self.ref.child("Products").child(eachCategoryName!)
+                    
+                    ProductsID.observeSingleEvent(of: DataEventType.value , with: { snapshot in
+                        
+                        categoryCounter = categoryCounter + 1
+                        
+                        for item1 in snapshot.children {
+                                    
+                            let eachProductAllData = item1 as! DataSnapshot
+                            let eachProductID = eachProductAllData.key as String?
+                            let eachProductData = eachProductAllData.value as! NSDictionary
+                            let eachProductName = eachProductData["productName"] as! String
+                            
+                            var eachProductImage: String?
+                            if let eachProductImageTemp = eachProductData["productImage"] as? String {
+                                eachProductImage = eachProductImageTemp
+                            }
+                            
+                            let eachProductDetail = eachProductData["productDetail"] as! String
+
+                            EachCategoryProducts.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!,productDetail: eachProductDetail, productCategory: eachCategoryName!))
+                                    
+                            allProductsForAllMenu.append(EachProduct(productID: eachProductID!, productName: eachProductName, productImgUrl: eachProductImage!, productDetail: eachProductDetail, productCategory: eachCategoryName!))
+                        }
+                        
+                        SharedManager.shared.AllProducts[eachCategoryName!] = EachCategoryProducts
+                                
+                        if categoryCounter == categoryCount {
+                            SharedManager.shared.AllProducts["AAAAAAAAAA"] = allProductsForAllMenu
+                            self.tableView.reloadData()
+                             RSLoadingView.hideFromKeyWindow()
+                        }
+                })
+            }
+        })
     }
     @IBAction func SelectPhoto(_ sender: Any) {
         CameraHandler.shared.showActionSheet(vc: self)
