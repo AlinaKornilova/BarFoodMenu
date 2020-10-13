@@ -214,7 +214,10 @@ extension CenterVC: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
         
         if segue.identifier == "MenuToDetail" {
             let DetailView = segue.destination as! ProductDetailViewController
-            DetailView.productData = self.selectProducts[selectedItemNumber]
+            
+            SharedManager.shared.editProductData = selectProducts[selectedItemNumber]
+
+//            DetailView.productData = self.selectProducts[selectedItemNumber]
         }
         
     }

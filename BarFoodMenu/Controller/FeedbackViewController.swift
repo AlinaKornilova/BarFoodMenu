@@ -135,13 +135,6 @@ class FeedbackViewController: UIViewController, UITableViewDelegate, UITableView
         let feedbackDateChar = formatter.string(from: originDateTime)
         cell.feedbackDate.text = feedbackDateChar
         
-//        cell.feedbackStar.rating = EachProductFeedbacks[indexPath.row].FeedbackRate
-//        cell.feedbackStar.settings.fillMode = .precise
-//        cell.feedbackStar.settings.starSize = 25
-//        cell.feedbackStar.settings.filledColor = UIColor.orange
-//        cell.feedbackStar.settings.emptyBorderColor = UIColor.orange
-//        cell.feedbackStar.settings.filledBorderColor = UIColor.orange
-        
         
         let titleAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 20.0) as Any]
         let contentAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont(name: "Avenir-Light", size: 18.0) as Any]

@@ -18,10 +18,17 @@ import RSLoadingView
 class AddMenuViewController: UIViewController {
     
     var ref: DatabaseReference!
+    var userDefaults = UserDefaults.standard
     var storageRef = Storage.storage().reference()
     var updatePhoto: String!
     var toUpImage: UIImage!
     var flag : Bool = false
+    var removeID : String!
+    var removeCategory : String!
+    
+    var edit_productCurrentVal : EachProduct!
+
+
 
     @IBOutlet weak var addmenuBtn: UIButton!
     @IBOutlet weak var selectPhotoBtn: UIButton!
@@ -35,7 +42,11 @@ class AddMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if let edit_productCurrentVal = SharedManager.shared.editProductData {
+            edit_DisplayCurrentState(edit_productCategoryCurrentVal: edit_productCurrentVal.productCategory, edit_productNameCurrentVal: edit_productCurrentVal.productName, edit_productDetailCurrentVal: edit_productCurrentVal.productDetail, edit_productIDCurrentVal: edit_productCurrentVal.productID, edit_productImgCurrentVal: edit_productCurrentVal.productImgUrl)
+        }
+        
         productImg.layer.cornerRadius = 8
         self.addmenuBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
         
@@ -46,10 +57,38 @@ class AddMenuViewController: UIViewController {
         //Mark  --- textfield refuse end---
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        SharedManager.shared.forEditingFlag = false
+    }
+    
     @objc func ViewEndEditing() {
         self.view.endEditing(true)
     }
     
+    func edit_DisplayCurrentState(edit_productCategoryCurrentVal: String, edit_productNameCurrentVal: String, edit_productDetailCurrentVal: String, edit_productIDCurrentVal: String, edit_productImgCurrentVal: String) {
+        if SharedManager.shared.forEditingFlag == true
+        {
+            let url = URL(string: edit_productImgCurrentVal)!
+            self.productImg.sd_setImage(with: url, placeholderImage: UIImage(named: "noImg"), options: SDWebImageOptions(rawValue: 0), completed: { (image, error, cacheType, imageURL) in
+                if( error != nil)
+                {
+                    print("Error while displaying image" , (error?.localizedDescription)! as String)
+                }
+            })
+            toUpImage = productImg.image
+            self.flag = true
+            
+            productCategory.placeholder = edit_productCategoryCurrentVal
+            productName.placeholder = edit_productNameCurrentVal
+            productDetail.placeholder = edit_productDetailCurrentVal
+            
+            removeID = edit_productIDCurrentVal
+            removeCategory = edit_productCategoryCurrentVal
+    
+        }
+    }
     @IBAction func SelectPhoto(_ sender: Any) {
         CameraHandler.shared.showActionSheet(vc: self)
         CameraHandler.shared.imagePickedBlock = { (image) in
@@ -68,6 +107,7 @@ class AddMenuViewController: UIViewController {
                     
         if flag == true {
             SharedManager.shared.addmenuFlag = true
+            
             let imageData = self.toUpImage.jpegData(compressionQuality: 0.1)
             let riversRef = self.storageRef.child("ProductImage").child("\(UUID().uuidString)")
             let metaDataConfig = StorageMetadata()
@@ -98,7 +138,7 @@ class AddMenuViewController: UIViewController {
                         RSLoadingView.hideFromKeyWindow()
                         return
                     }
-                    else if (self.productCategory.textView?.text)!.count <= 5 {
+                    else if (self.productCategory.textView?.text)!.count <= 2 {
                         RSLoadingView.hideFromKeyWindow()
 
                         Utils.shared.showAlertWith(title: "Product category'content is too weak!", content: "Please enter more characters than 5 !", viewController: self)
@@ -110,7 +150,7 @@ class AddMenuViewController: UIViewController {
                         Utils.shared.showAlertWith(title: "Product name is empty!", content: "Please enter product name!", viewController: self)
                         return
                     }
-                    else if (self.productName.textView?.text)!.count <= 5 {
+                    else if (self.productName.textView?.text)!.count <= 2 {
                         RSLoadingView.hideFromKeyWindow()
 
                         Utils.shared.showAlertWith(title: "Product name'content is too weak!", content: "Please enter more characters than 5 !", viewController: self)
@@ -122,7 +162,7 @@ class AddMenuViewController: UIViewController {
                         Utils.shared.showAlertWith(title: "Product detail is empty!", content: "Please enter product detail!", viewController: self)
                         return
                     }
-                    else if (self.productDetail.textView?.text)!.count <= 5 {
+                    else if (self.productDetail.textView?.text)!.count <= 2 {
                         RSLoadingView.hideFromKeyWindow()
 
                         Utils.shared.showAlertWith(title: "Product detail'content is too weak!", content: "Please enter more characters than 5 !", viewController: self)
@@ -133,12 +173,20 @@ class AddMenuViewController: UIViewController {
                         let alert = UIAlertController(title: "Will you add really this Menu?", message: "", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
                         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+                            
+                            self.ref = Database.database().reference()
+                            print("Products/\((self.removeCategory)!)/\((self.removeID)!)")
+                            self.ref.child("Products/\((self.removeCategory)!)/\((self.removeID)!)").removeValue()
+                            self.deleteFromDefaults(favoriteID: (self.removeID)!)
+
+                            SharedManager.shared.editProductData = EachProduct(productID: productID, productName: (self.productName.textView?.text)!, productImgUrl: (self.updatePhoto)!, productDetail: (self.productDetail.textView?.text)!, productCategory: (self.productCategory.textView?.text)!)
+                            
                             self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productName").setValue((self.productName.textView?.text)!)
                             self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productDetail").setValue((self.productDetail.textView?.text)!)
-                            print((self.productDetail.textView?.text)!)
                             self.ref.child("Products/\((self.productCategory.textView?.text)!)/\(productID)").child("productImage").setValue((self.updatePhoto)!)
                             self.flag = false
                             self.navigationController?.popViewController(animated: true)
+                        
                         }))
                         self.present(alert, animated: true)
                     }
@@ -151,6 +199,14 @@ class AddMenuViewController: UIViewController {
             return
         }
         
+    }
+    
+    func writeToDefaults(favoriteCategory: String, favoriteID: String) {
+        userDefaults.set(favoriteCategory, forKey: favoriteID)
+    }
+    
+    func deleteFromDefaults(favoriteID: String) {
+        userDefaults.removeObject(forKey: favoriteID)
     }
     
 

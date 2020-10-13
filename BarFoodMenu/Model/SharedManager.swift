@@ -21,4 +21,7 @@ class SharedManager {
     var selectedProductViewers: Int = 0
     var addmenuFlag: Bool = false
     
+    
+    var forEditingFlag: Bool = false
+    var editProductData: EachProduct!
 }

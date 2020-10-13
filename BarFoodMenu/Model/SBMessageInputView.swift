@@ -231,6 +231,16 @@ extension SBMessageInputView: UITextViewDelegate {
         
         if (textView.text == placeholder && textView.textColor == placeholderColor) {
             textView.text = ""
+//            if ( ( placeholder != "Enter product Category" ) && ( textView.text != "Enter product name" ) && ( textView.text != "Enter product detail" ) )
+            if ( SharedManager.shared.forEditingFlag == true )
+            {
+                textView.text = placeholder
+            }
+            else {
+                textView.text = ""
+            }
+            
+
             textView.textColor = textColor
         }
         

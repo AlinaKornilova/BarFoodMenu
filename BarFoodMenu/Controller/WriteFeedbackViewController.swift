@@ -33,12 +33,6 @@ class WriteFeedbackViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        giveStar.settings.fillMode = .precise
-//        giveStar.settings.starSize = 35
-//        giveStar.settings.filledColor = UIColor.orange
-//        giveStar.settings.emptyBorderColor = UIColor.orange
-//        giveStar.settings.filledBorderColor = UIColor.orange
         
         submitBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
         
@@ -84,13 +78,9 @@ class WriteFeedbackViewController: UIViewController {
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackTitle").setValue(NSString(string: (self.giveTitle.textView?.text)!))
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackUserName").setValue(NSString(utf8String: self.giveUserName))
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackUserPhoto").setValue(NSString(utf8String: self.giveUserPhoto))
-//                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productFeedback/\(giveTime)/feedbackRate").setValue(NSNumber(value: givestarrate))
                 self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productViewer").setValue(self.giveCount + 1)
-//                let updateTotalRate = Double(self.giveCount) * self.giveAverageRate + givestarrate
-//                let updateRate = updateTotalRate / Double(self.giveCount + 1)
-//                    SharedManager.shared.selectedProdcutRating = updateRate
+
                 SharedManager.shared.selectedProductViewers = self.giveCount + 1
-//                self.ref.child("Products/\(self.giveProductCategory!)/\(self.giveProductID!)/productRating").setValue(NSNumber(value: updateRate))
                     self.navigationController?.popViewController(animated: true)
             }))
             self.present(alert, animated: true)

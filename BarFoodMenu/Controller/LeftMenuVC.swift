@@ -192,7 +192,7 @@ class LeftMenuVC: UIViewController {
         alertController.addTextField {
             (txtUsername) -> Void in
             usernameTextField = txtUsername
-            usernameTextField!.placeholder = "<Your username here>"
+            usernameTextField!.placeholder = "Your username here!"
         }
         // 5.
         alertController.addAction(loginAction)
