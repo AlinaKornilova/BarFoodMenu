@@ -14,5 +14,6 @@ target 'BarFoodMenu' do
   pod 'FAPanels'
   pod 'Cosmos'
   pod 'NVActivityIndicatorView'
+  pod 'IQKeyboardManagerSwift'
 
 end
