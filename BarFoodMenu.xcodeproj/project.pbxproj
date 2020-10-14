@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		091DC9742526B850005565D4 /* SBMessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DC9732526B84F005565D4 /* SBMessageInputView.swift */; };
-		091DC9762526BE62005565D4 /* WriteFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */; };
 		095DBAC225246F5E00D961B6 /* EachFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095DBAC125246F5E00D961B6 /* EachFeedback.swift */; };
+		096735722536EEAD005C1318 /* RightMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096735712536EEAC005C1318 /* RightMenuVC.swift */; };
+		096735742536EEF0005C1318 /* RightMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096735732536EEF0005C1318 /* RightMenuCell.swift */; };
 		09691D48251763CC00C0617E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D47251763CC00C0617E /* AppDelegate.swift */; };
 		09691D4A251763CC00C0617E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D49251763CC00C0617E /* SceneDelegate.swift */; };
 		09691D4F251763CC00C0617E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09691D4D251763CC00C0617E /* Main.storyboard */; };
@@ -26,10 +27,6 @@
 		09691D8F2517A90400C0617E /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D8C2517A90400C0617E /* UIButton.swift */; };
 		09691D902517A90400C0617E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D8D2517A90400C0617E /* UIImage.swift */; };
 		09691D942517CD5700C0617E /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D932517CD5700C0617E /* ProductDetailViewController.swift */; };
-		09691D972518668500C0617E /* RightMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D952518668400C0617E /* RightMenuCell.swift */; };
-		09691D982518668500C0617E /* RightMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09691D962518668500C0617E /* RightMenuVC.swift */; };
-		09A0F14E2523BA700006EADB /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0F14D2523BA700006EADB /* FeedbackViewController.swift */; };
-		09A0F1502523BA980006EADB /* FeedbackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A0F14F2523BA980006EADB /* FeedbackTableViewCell.swift */; };
 		09A463D32519E116007434D4 /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D12519E115007434D4 /* SigninViewController.swift */; };
 		09A463D42519E116007434D4 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D22519E116007434D4 /* SignupViewController.swift */; };
 		09A463D62519E12D007434D4 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A463D52519E12D007434D4 /* NavigationViewController.swift */; };
@@ -43,8 +40,9 @@
 
 /* Begin PBXFileReference section */
 		091DC9732526B84F005565D4 /* SBMessageInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SBMessageInputView.swift; sourceTree = "<group>"; };
-		091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteFeedbackViewController.swift; sourceTree = "<group>"; };
 		095DBAC125246F5E00D961B6 /* EachFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EachFeedback.swift; sourceTree = "<group>"; };
+		096735712536EEAC005C1318 /* RightMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuVC.swift; sourceTree = "<group>"; };
+		096735732536EEF0005C1318 /* RightMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuCell.swift; sourceTree = "<group>"; };
 		09691D44251763CC00C0617E /* My Home Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Home Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09691D47251763CC00C0617E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09691D49251763CC00C0617E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,10 +61,6 @@
 		09691D8C2517A90400C0617E /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		09691D8D2517A90400C0617E /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		09691D932517CD5700C0617E /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
-		09691D952518668400C0617E /* RightMenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuCell.swift; sourceTree = "<group>"; };
-		09691D962518668500C0617E /* RightMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightMenuVC.swift; sourceTree = "<group>"; };
-		09A0F14D2523BA700006EADB /* FeedbackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackViewController.swift; sourceTree = "<group>"; };
-		09A0F14F2523BA980006EADB /* FeedbackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTableViewCell.swift; sourceTree = "<group>"; };
 		09A463D12519E115007434D4 /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		09A463D22519E116007434D4 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		09A463D52519E12D007434D4 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -105,12 +99,10 @@
 		09078965251B98BA00666552 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				09691D962518668500C0617E /* RightMenuVC.swift */,
+				096735712536EEAC005C1318 /* RightMenuVC.swift */,
 				09691D5B251766B300C0617E /* LeftMenuVC.swift */,
 				09691D61251766C300C0617E /* CenterVC.swift */,
 				09691D932517CD5700C0617E /* ProductDetailViewController.swift */,
-				09A0F14D2523BA700006EADB /* FeedbackViewController.swift */,
-				091DC9752526BE62005565D4 /* WriteFeedbackViewController.swift */,
 				09A9ED2E2527A73C003A77D6 /* AddMenuViewController.swift */,
 				09078962251B981300666552 /* Authentication */,
 			);
@@ -173,10 +165,9 @@
 		09691D80251774C000C0617E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				09691D952518668400C0617E /* RightMenuCell.swift */,
+				096735732536EEF0005C1318 /* RightMenuCell.swift */,
 				09691D5D251766B300C0617E /* LeftMenuCell.swift */,
 				09691D81251774C000C0617E /* AnnotatedPhotoCell.swift */,
-				09A0F14F2523BA980006EADB /* FeedbackTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -346,10 +337,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				09A0F14E2523BA700006EADB /* FeedbackViewController.swift in Sources */,
 				09691D85251776B000C0617E /* SharedManager.swift in Sources */,
 				09A9ED2F2527A73C003A77D6 /* AddMenuViewController.swift in Sources */,
 				09691D8E2517A90400C0617E /* SInce1970.swift in Sources */,
+				096735722536EEAD005C1318 /* RightMenuVC.swift in Sources */,
 				09691D5E251766B300C0617E /* LeftMenuVC.swift in Sources */,
 				09691D83251774C000C0617E /* AnnotatedPhotoCell.swift in Sources */,
 				09E2FF4D2518FB7200668AA1 /* Utils.swift in Sources */,
@@ -358,15 +349,12 @@
 				09A463D62519E12D007434D4 /* NavigationViewController.swift in Sources */,
 				09691D942517CD5700C0617E /* ProductDetailViewController.swift in Sources */,
 				09A463D42519E116007434D4 /* SignupViewController.swift in Sources */,
-				091DC9762526BE62005565D4 /* WriteFeedbackViewController.swift in Sources */,
 				095DBAC225246F5E00D961B6 /* EachFeedback.swift in Sources */,
-				09691D972518668500C0617E /* RightMenuCell.swift in Sources */,
 				09E2FF532519DDE300668AA1 /* FirebaseUpload.swift in Sources */,
-				09A0F1502523BA980006EADB /* FeedbackTableViewCell.swift in Sources */,
 				09E2FF4C2518FB7200668AA1 /* CameraHandler.swift in Sources */,
-				09691D982518668500C0617E /* RightMenuVC.swift in Sources */,
 				09691D62251766C300C0617E /* CenterVC.swift in Sources */,
 				09691D8F2517A90400C0617E /* UIButton.swift in Sources */,
+				096735742536EEF0005C1318 /* RightMenuCell.swift in Sources */,
 				09691D48251763CC00C0617E /* AppDelegate.swift in Sources */,
 				09A463D32519E116007434D4 /* SigninViewController.swift in Sources */,
 				09E2FF542519DDE300668AA1 /* EachUser.swift in Sources */,

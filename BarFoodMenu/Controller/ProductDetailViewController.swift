@@ -9,6 +9,7 @@
 import UIKit
 import Cosmos
 import SDWebImage
+import NVActivityIndicatorView
 
 class ProductDetailViewController: UIViewController {
     
@@ -21,6 +22,8 @@ class ProductDetailViewController: UIViewController {
     @IBOutlet weak var productDetail: UILabel!
     @IBOutlet weak var favoriteBtn: UIButton!
     @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var detaiImgLoading: NVActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +36,15 @@ class ProductDetailViewController: UIViewController {
         productDetail.text = productData.productDetail
         
         let url = URL(string: productData.productImgUrl)!
+        detaiImgLoading.startAnimating()
         self.productImg.sd_setImage(with: url, placeholderImage: UIImage(named: "noImg"), options: SDWebImageOptions(rawValue: 0), completed: { (image, error, cacheType, imageURL) in
             if( error != nil)
             {
                 print("Error while displaying image" , (error?.localizedDescription)! as String)
             }
+            self.detaiImgLoading.stopAnimating()
         })
+
         
         self.favoriteBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])
         self.editBtn.applyGradient(colors: [Utils.shared.UIColorFromRGB(0x2B95CE).cgColor,Utils.shared.UIColorFromRGB(0x2ECAD5).cgColor])

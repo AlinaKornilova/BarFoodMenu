@@ -24,4 +24,6 @@ class SharedManager {
     
     var forEditingFlag: Bool = false
     var editProductData: EachProduct!
+    
+    var didcellflag: Bool = false
 }

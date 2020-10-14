@@ -36,8 +36,8 @@ class CenterVC: UIViewController {
         
         
         loadingViewBig.stopAnimating()
-
         if SharedManager.shared.AllProducts.count == 0 {
+
             self.readEachProductData()
         }
         else {
@@ -58,9 +58,10 @@ class CenterVC: UIViewController {
             }
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        
         if SharedManager.shared.addmenuFlag == false {
+
             if wentTodetailFlag == true {
                 var favoriteProducts : [EachProduct] = []
                 for key in (UserDefaults.standard.dictionaryRepresentation().keys) {
@@ -73,7 +74,6 @@ class CenterVC: UIViewController {
                     }
                 }
                 SharedManager.shared.AllProducts["AAAAAAAAAAa"] = favoriteProducts
-                
                 guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
                 self.selectProducts = products
                 self.selectProducts.sort {
@@ -96,7 +96,6 @@ class CenterVC: UIViewController {
             self.readEachProductData()
             SharedManager.shared.addmenuFlag = false
         }
-               
     }
 
     override func didReceiveMemoryWarning() {
@@ -111,20 +110,18 @@ class CenterVC: UIViewController {
     }
     
     @IBAction func showRightVC(_ sender: Any) {
-        
            let toAddmenu = self.storyboard?.instantiateViewController(withIdentifier: "AddMenuViewController") as! AddMenuViewController
            self.navigationController?.pushViewController(toAddmenu, animated: true)
-        //panel?.openRight(animated: true)
     }
     
     func readEachProductData() {
         
         let loadingView = RSLoadingView()
         loadingView.showOnKeyWindow()
-        
+
             self.ref = Database.database().reference()
             let ProductsCategory = self.ref.child("Products")
-            ProductsCategory.observe(DataEventType.value , with: { snapshot in
+            ProductsCategory.observeSingleEvent(of: DataEventType.value , with: { snapshot in
                 
                 let categoryCount = snapshot.childrenCount
                 var categoryCounter = 0
@@ -138,7 +135,6 @@ class CenterVC: UIViewController {
                     let ProductsID = self.ref.child("Products").child(eachCategoryName!)
                     
                     ProductsID.observeSingleEvent(of: DataEventType.value , with: { snapshot in
-                        
                         categoryCounter = categoryCounter + 1
                         
                         for item1 in snapshot.children {
@@ -163,14 +159,73 @@ class CenterVC: UIViewController {
                         SharedManager.shared.AllProducts[eachCategoryName!] = EachCategoryProducts
                                 
                         if categoryCounter == categoryCount {
-                            SharedManager.shared.AllProducts["AAAAAAAAAA"] = allProductsForAllMenu
-                            SharedManager.shared.selectKey = "AAAAAAAAAA"
-                            guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
-                            self.menuTitle.title = "All Menu"
-                            self.selectProducts = products
-                            self.selectProducts.sort {
-                               $0.productName < $1.productName
+                            if SharedManager.shared.didcellflag == false {
+                                SharedManager.shared.AllProducts["AAAAAAAAAA"] = allProductsForAllMenu
+                                SharedManager.shared.selectKey = "AAAAAAAAAA"
+                                guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else { return }
+                                self.menuTitle.title = "All Menu"
+                                self.selectProducts = products
+                                self.selectProducts.sort {
+                                   $0.productName < $1.productName
+                                }
                             }
+                            else {
+                                print(SharedManager.shared.selectKey)
+                                print(SharedManager.shared.AllProducts)
+                                SharedManager.shared.AllProducts["AAAAAAAAAA"] = allProductsForAllMenu
+                                guard let products = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else {
+                                    
+                                    SharedManager.shared.selectKey = "AAAAAAAAAA"
+                                    self.menuTitle.title = "All Menu"
+                                    guard let productss = SharedManager.shared.AllProducts[SharedManager.shared.selectKey] else {
+                                        self.selectProducts.removeAll()
+                                        self.collectionView.reloadData()
+                                        RSLoadingView.hideFromKeyWindow()
+                                        return
+                                    }
+                                    self.selectProducts = productss
+                                    self.collectionView.reloadData()
+                                    RSLoadingView.hideFromKeyWindow()
+                                    return
+                                }
+                                
+                                if SharedManager.shared.selectKey == "AAAAAAAAAA" {
+                                    self.menuTitle.title = "All Menu"
+                                }
+                                else if SharedManager.shared.selectKey == "AAAAAAAAAAa" {
+                                    self.menuTitle.title = "Favorite"
+                                }
+                                else {
+                                    self.menuTitle.title = SharedManager.shared.selectKey
+                                }
+                                self.selectProducts = products
+                                self.selectProducts.sort {
+                                   $0.productName < $1.productName
+                                }
+                                if ( ( self.selectProducts.count == 0 ) && (SharedManager.shared.selectKey != "AAAAAAAAAA")  && (SharedManager.shared.selectKey != "AAAAAAAAAAa") ) {
+                                    SharedManager.shared.AllProducts.removeValue(forKey: SharedManager.shared.selectKey)
+                                    if let allProducts = SharedManager.shared.AllProducts["AAAAAAAAAA"] {
+                                        var count1 = 0
+                                        for item in allProducts {
+                                            if( item.productCategory == SharedManager.shared.selectKey ) {
+                                                SharedManager.shared.AllProducts["AAAAAAAAAA"]?.remove(at: count1)
+                                            }
+                                            count1 = count1 + 1
+                                        }
+                                    }
+                                    if let allProducts = SharedManager.shared.AllProducts["AAAAAAAAAAa"] {
+                                        var count2 = 0
+                                        for item in allProducts {
+                                            if( item.productCategory == SharedManager.shared.selectKey ) {
+                                                SharedManager.shared.AllProducts["AAAAAAAAAAa"]?.remove(at: count2)
+                                            }
+                                            count2 = count2 + 1
+                                        }
+                                    }
+                                }
+                                SharedManager.shared.didcellflag = false
+                            }
+                            
                             self.collectionView.reloadData()
                             RSLoadingView.hideFromKeyWindow()
                         }
@@ -178,6 +233,7 @@ class CenterVC: UIViewController {
             }
         })
     }
+    
 }
 extension CenterVC: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate,UICollectionViewDataSource {
     
@@ -189,6 +245,9 @@ extension CenterVC: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AnnotatedPhotoCell", for: indexPath as IndexPath) as! AnnotatedPhotoCell
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed))
+        self.view.addGestureRecognizer(longPressRecognizer)
         cell.eachproduct = self.selectProducts[indexPath.item]
 
         return cell
@@ -211,15 +270,54 @@ extension CenterVC: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate
      }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "MenuToDetail" {
-            let DetailView = segue.destination as! ProductDetailViewController
-            
-            SharedManager.shared.editProductData = selectProducts[selectedItemNumber]
 
-//            DetailView.productData = self.selectProducts[selectedItemNumber]
+        if segue.identifier == "MenuToDetail" {
+            SharedManager.shared.editProductData = selectProducts[selectedItemNumber]
         }
-        
+
     }
     
+    @objc func longPressed(sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == .ended {
+
+            let point = sender.location(in: self.collectionView)
+            let indexPath = self.collectionView?.indexPathForItem(at: point)
+            if indexPath != nil
+            {
+                let alertActionCell = UIAlertController(title: "Will you really delete this product?", message: "Choose an action for deleting.", preferredStyle: .actionSheet)
+
+                // Configure Remove Item Action
+                let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { action in                
+                    let removeproduct = self.selectProducts[indexPath!.row]
+                    self.ref = Database.database().reference()
+                    self.ref.child("Products/\(removeproduct.productCategory)/\(removeproduct.productID)").removeValue()
+                    SharedManager.shared.didcellflag = true
+                    SharedManager.shared.selectKey = removeproduct.productCategory
+                    print(SharedManager.shared.selectKey)
+                    self.selectProducts.removeAll()
+                    print(SharedManager.shared.AllProducts)
+                    SharedManager.shared.AllProducts.removeValue(forKey: removeproduct.productCategory)
+                    print(SharedManager.shared.AllProducts)
+                    self.readEachProductData()
+                })
+
+                // Configure Cancel Action Sheet
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { acion in
+                    print("Cancel actionsheet")
+                })
+                
+                if let popoverController = alertActionCell.popoverPresentationController {
+                    popoverController.sourceView = self.view
+                  popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 50, height: 0)
+                  popoverController.permittedArrowDirections = []
+                }
+
+                alertActionCell.addAction(deleteAction)
+                alertActionCell.addAction(cancelAction)
+                self.present(alertActionCell, animated: true, completion: nil)
+
+            }
+        }
+    }
 }

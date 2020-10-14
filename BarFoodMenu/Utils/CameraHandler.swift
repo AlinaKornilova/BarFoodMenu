@@ -49,6 +49,12 @@ class CameraHandler: NSObject {
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.currentVC.view
+          popoverController.sourceRect = CGRect(x: self.currentVC.view.bounds.midX, y: self.currentVC.view.bounds.midY, width: 0, height: 0)
+          popoverController.permittedArrowDirections = []
+        }
+
         vc.present(actionSheet, animated: true, completion: nil)
     }
 }

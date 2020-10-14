@@ -175,9 +175,10 @@ class AddMenuViewController: UIViewController {
                         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
                             
                             self.ref = Database.database().reference()
-                            print("Products/\((self.removeCategory)!)/\((self.removeID)!)")
-                            self.ref.child("Products/\((self.removeCategory)!)/\((self.removeID)!)").removeValue()
-                            self.deleteFromDefaults(favoriteID: (self.removeID)!)
+                            if SharedManager.shared.forEditingFlag == true {
+                                self.ref.child("Products/\((self.removeCategory)!)/\((self.removeID)!)").removeValue()
+                                self.deleteFromDefaults(favoriteID: (self.removeID)!)
+                            }
 
                             SharedManager.shared.editProductData = EachProduct(productID: productID, productName: (self.productName.textView?.text)!, productImgUrl: (self.updatePhoto)!, productDetail: (self.productDetail.textView?.text)!, productCategory: (self.productCategory.textView?.text)!)
                             

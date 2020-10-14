@@ -33,13 +33,12 @@ class LeftMenuVC: UIViewController {
     @IBOutlet weak var UpdatePhotoBtn: UIButton!
     @IBOutlet weak var signoutBtn: UIButton!
     
-    
     @IBOutlet var tableView: UITableView!
     
      override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
 
         guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -61,9 +60,10 @@ class LeftMenuVC: UIViewController {
             self.UpdateImage.layer.masksToBounds = true
             self.UpdateImage.layer.cornerRadius = self.UpdateImage.bounds.width / 2
         })
-        readEachProductData()
+        readEachProductData1()
     }
-    func readEachProductData() {
+    
+    func readEachProductData1() {
         
         let loadingView = RSLoadingView()
         loadingView.showOnKeyWindow()
@@ -117,6 +117,7 @@ class LeftMenuVC: UIViewController {
             }
         })
     }
+    
     @IBAction func SelectPhoto(_ sender: Any) {
         CameraHandler.shared.showActionSheet(vc: self)
         CameraHandler.shared.imagePickedBlock = { (image) in
@@ -126,6 +127,7 @@ class LeftMenuVC: UIViewController {
             self.UpdateInfo()
         }
     }
+    
     func UpdateInfo() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         self.ref = Database.database().reference()
@@ -199,6 +201,7 @@ class LeftMenuVC: UIViewController {
         present(alertController, animated: true, completion: nil)
 
     }
+    
     @IBAction func SignoutBtnAction(_ sender: Any) {
         do { try Auth.auth().signOut() }
         catch { print("already logged out") }
@@ -207,6 +210,7 @@ class LeftMenuVC: UIViewController {
         UIApplication.shared.windows.first?.rootViewController = toSignin
         UIApplication.shared.windows.first?.makeKeyAndVisible()        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -215,16 +219,6 @@ class LeftMenuVC: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     private func viewConfigurations() {
         
@@ -292,7 +286,6 @@ extension LeftMenuVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
             SharedManager.shared.AllProducts["AAAAAAAAAAa"] = favoriteProducts
-            
         }
         if indexPath.row == 0 {
             
@@ -309,8 +302,7 @@ extension LeftMenuVC: UITableViewDataSource, UITableViewDelegate {
                 SharedManager.shared.selectKey = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row - 1 ]
             }
         }
-//        SharedManager.shared.selectKey = (Array(SharedManager.shared.AllProducts.keys).sorted(by: <))[indexPath.row]
-        
+     
         panel!.configs.bounceOnCenterPanelChange = true
         panel!.center(centerNavVC, afterThat: {
             print("Executing block after changing center panelVC From Left Menu")
